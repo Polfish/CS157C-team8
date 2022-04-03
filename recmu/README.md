@@ -1,16 +1,5 @@
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://grandstack.io/deploy-starter-netlify) [![Deploy to Vercel](https://vercel.com/button)](https://grandstack.io/deploy-starter-vercel) [![Provision Neo4j](https://grandstack.io/img/provision-neo4j.png)](https://sandbox.neo4j.com/?usecase=blank-sandbox)
 
-# NOTE FOR WHEN PULLING CHANGES FROM REPO:
-## cd recmu
-npm install
-
-## cd web-react
-npm install
-
-## cd api
-npm install
-Then cd back to recmu directory and run **npm start**
-
 # GRANDstack Starter
 ```
 npx create-grandstack-app myNewApp
