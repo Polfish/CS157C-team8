@@ -88,9 +88,6 @@ type Mutation {
 }
 
 type Query {
-  userCount: Int! @cypher(statement: "MATCH (u:User) RETURN COUNT(u)")
-  ratingsCount: [RatingCount]
-    @cypher(
-      statement: "MATCH (r:Review) WITH r.stars AS stars, COUNT(*) AS count ORDER BY stars RETURN {stars: stars, count: count}"
-    )
+  userCount: Int!
+    @cypher(statement: "MATCH (n:Artist) RETURN count(*) as count")
 }
