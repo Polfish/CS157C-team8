@@ -116,6 +116,8 @@ type Mutation {
 }
 
 type Query {
-  userCount: Int!
-    @cypher(statement: "MATCH (n:Artist) RETURN count(*) as count")
+  userCount: String
+    @cypher(
+      statement: "MATCH (s:song {name: 'Beautiful People (feat. Khalid)'})-[r:RELATED_TO]->(n:song) RETURN n.name"
+    )
 }
