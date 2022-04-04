@@ -2,6 +2,34 @@ scalar Point
 scalar DateTime
 scalar PointInput
 
+type Album {
+  id: Int!
+  name: String
+  songs: [Song] @relationship(type: "IN_ALBUM", direction: IN)
+}
+
+type Song {
+  id: Int!
+  name: String
+  genre: [Genre] @relationship(type: "IN_GENRE", direction: OUT)
+  album: [Album] @relationship(type: "IN_ALBUM", direction: OUT)
+  artist: [Artist] @relationship(type: "HAS_ARTIST", direction: OUT)
+  songs: [Song] @relationship(type: "RELATED_TO", direction: OUT)
+}
+
+type Artist {
+  id: Int!
+  name: String
+  songs: [Song] @relationship(type: "HAS_ARTIST", direction: IN)
+  artists: [Artist] @relationship(type: "RELATED_TO", direction: OUT)
+}
+
+type Genre {
+  id: Int!
+  name: String
+  songs: [Song] @relationship(type: "IN_GENRE", direction: IN)
+}
+
 type User {
   userId: ID!
   name: String
