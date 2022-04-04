@@ -2,34 +2,33 @@ import React from 'react'
 
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
-// import UserList from './components/UserList'
+import UserList from './components/UserList'
 
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
-
-// import SearchBar from 'material-ui-search-bar'
 import {
   CssBaseline,
-  // Drawer,
+  Drawer,
   Box,
   AppBar,
   Toolbar,
-  // List,
+  List,
   Typography,
-  // Divider,
-  // IconButton,
+  Divider,
+  IconButton,
   Container,
   Link as MUILink,
-  // ListItem,
-  // ListItemText,
-  // ListItemIcon,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
 } from '@material-ui/core'
-// import { Link } from 'react-router-dom'
-import // ChevronLeft as ChevronLeftIcon,
-// Menu as MenuIcon,
-// Dashboard as DashboardIcon,
-// People as PeopleIcon,
-'@material-ui/icons'
+import { Link } from 'react-router-dom'
+import {
+  ChevronLeft as ChevronLeftIcon,
+  Menu as MenuIcon,
+  Dashboard as DashboardIcon,
+  People as PeopleIcon,
+} from '@material-ui/icons'
 import Dashboard from './components/Dashboard'
 
 function Copyright() {
@@ -37,7 +36,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <MUILink color="inherit" href="https://grandstack.io/">
-        RecMu NoSQL CS 157C Team 8
+        Your GRANDstack App Name Here
       </MUILink>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -62,18 +61,15 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   appBar: {
-    // zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-      // backgroundImage: `url("https://via.placeholder.com/500")`
-      // backgroundImage: `img/RecMuTitleBarImage.png`,
-      backgroundColor: 'red',
     }),
   },
   appBarShift: {
     marginLeft: drawerWidth,
-    // width: `calc(100% - ${drawerWidth}px)`,
+    width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -111,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: '120vh',
+    height: '100vh',
     overflow: 'auto',
   },
   container: {
@@ -139,36 +135,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles()
-  // const [open, setOpen] = React.useState(true)
-  // const handleDrawerOpen = () => {
-  //   setOpen(true)
-  // }
-  // const handleDrawerClose = () => {
-  //   setOpen(false)
-  // }
+  const [open, setOpen] = React.useState(true)
+  const handleDrawerOpen = () => {
+    setOpen(true)
+  }
+  const handleDrawerClose = () => {
+    setOpen(false)
+  }
 
   return (
     <Router>
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
-          //style={{ background: 'img/RecMuTitleBarImage.png' }}
-          style={{ backgroundColor: '#de6262' }}
-          position="fixed"
+          position="absolute"
           className={clsx(classes.appBar, open && classes.appBarShift)}
-          width="auto"
-          // src="img/RecMuTitleBarImage.png"
-          // backgroundImage="img/RecMuTitleBarImage.png"
         >
-          {/* <img
-            // className={classes.appBarImage}
-            src="img/RecMuTitleBarImage.png"
-            alt="Title Bar Image"
-          /> */}
-          {/* <div src="img/RecMuTitleBarImage.png"></div> */}
-          {/* AppBar.style.top = '150px'; AppBar.style.left = '150px'; */}
           <Toolbar className={classes.toolbar}>
-            {/* <IconButton
+            <IconButton
               edge="start"
               color="inherit"
               aria-label="open drawer"
@@ -182,21 +166,21 @@ export default function App() {
             </IconButton>
             <img
               className={classes.appBarImage}
-              src="img/RecMuTitleBarImage.png"
-              alt="Title Bar"
-            /> */}
+              src="img/grandstack.png"
+              alt="GRANDstack logo"
+            />
             <Typography
               component="h1"
-              variant="h8"
+              variant="h6"
               color="inherit"
               noWrap
               className={classes.title}
             >
-              RecMu
+              Welcome To GRANDstack App
             </Typography>
           </Toolbar>
         </AppBar>
-        {/* <Drawer
+        <Drawer
           variant="permanent"
           classes={{
             paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
@@ -229,20 +213,14 @@ export default function App() {
             </Link>
           </List>
           <Divider />
-        </Drawer> */}
-        {/* <SearchBar
-          value={this.state.value}
-          // onChange={(newValue) => this.setState({ value: newValue })}
-          // onRequestSearch={() => doSomethingWith(this.state.value)}
-          // onRequestSearch={console.log('Hello')}
-        /> */}
+        </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
               <Route exact path="/" component={Dashboard} />
-              {/* <Route exact path="/businesses" component={UserList} /> */}
-              {/* <Route exact path="/users" component={UserList} /> */}
+              <Route exact path="/businesses" component={UserList} />
+              <Route exact path="/users" component={UserList} />
             </Switch>
 
             <Box pt={4}>

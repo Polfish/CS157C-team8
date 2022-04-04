@@ -27,16 +27,16 @@ export default function Deposits() {
   if (error) return <p>Error</p>
   return (
     <React.Fragment>
-      <Title>Total Artists</Title>
+      <Title>Total Users</Title>
       <Typography component="p" variant="h4">
         {loading ? 'Loading...' : data.userCount}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        artists found
+        users found
       </Typography>
       <div>
         <Link to="/users" className={classes.navLink}>
-          View artists
+          View users
         </Link>
       </div>
     </React.Fragment>
