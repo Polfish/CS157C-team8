@@ -37,10 +37,10 @@ export default function Deposits({ artistName }) {
         {loading ? 'Loading...' : data.findRelatedArtists.join('\n')}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        Artists found
+        {loading ? 'Loading...' : data.findRelatedArtists.length} Artists found
       </Typography>
       <div>
-        <Link to="/users" className={classes.navLink}>
+        <Link to="/artists" className={classes.navLink}>
           View artists
         </Link>
       </div>

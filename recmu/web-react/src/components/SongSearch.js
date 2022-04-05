@@ -37,10 +37,10 @@ export default function Deposits({ songName }) {
         {loading ? 'Loading...' : data.findRelatedSongs.join('\n')}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        Songs found
+        {loading ? 'Loading...' : data.findRelatedSongs.length} Songs found
       </Typography>
       <div>
-        <Link to="/users" className={classes.navLink}>
+        <Link to="/songs" className={classes.navLink}>
           View songs
         </Link>
       </div>
