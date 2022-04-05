@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
@@ -21,18 +21,18 @@ import {
   Container,
   Link as MUILink,
   TextField,
-  InputAdornment,
+  // InputAdornment,
+  IconButton,
   // ListItem,
   // ListItemText,
   // ListItemIcon,
 } from '@material-ui/core'
 // import { Link } from 'react-router-dom'
-import // ChevronLeft as ChevronLeftIcon,
+// import // ChevronLeft as ChevronLeftIcon,
 // Menu as MenuIcon,
 // Dashboard as DashboardIcon,
 // People as PeopleIcon,
-'@material-ui/icons'
-import { AccountCircle } from '@material-ui/icons'
+import { SearchOutlined } from '@material-ui/icons'
 import Dashboard from './components/Dashboard'
 
 function Copyright() {
@@ -153,6 +153,23 @@ export default function App() {
   //   setOpen(false)
   // }
 
+  const [search, setSearch] = useState('')
+  const [searching, setSearching] = useState(false)
+
+  const handleSearch = () => {
+    console.log(search)
+    setSearching(true)
+    setSearch('')
+  }
+
+  const showSearchResults = () => {
+    return (
+      <div>
+        <h2>Search Results</h2>
+      </div>
+    )
+  }
+
   return (
     <Router>
       <div className={classes.root}>
@@ -245,26 +262,24 @@ export default function App() {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
-            <TextField
-              id="search-bar"
-              label="search for song, album, or artist"
-              variant="outlined"
-              className={classes.searchBar}
-            />
-
-            <TextField
-              id="input-with-icon-textfield"
-              label="Search for song, album, or artist"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              }}
-              variant="standard"
-              className={classes.searchBar}
-            />
+            <div>
+              <TextField
+                id="input-with-icon-textfield"
+                label="Search for song, album, or artist"
+                InputProps={{
+                  startAdornment: (
+                    <IconButton onClick={handleSearch}>
+                      <SearchOutlined />
+                    </IconButton>
+                  ),
+                }}
+                onChange={({ target }) => setSearch(target.value)}
+                value={search}
+                variant="standard"
+                className={classes.searchBar}
+              />
+            </div>
+            {searching ? showSearchResults() : null}
             <Switch>
               <Route exact path="/" component={Dashboard} />
               {/* <Route exact path="/businesses" component={UserList} /> */}
