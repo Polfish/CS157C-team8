@@ -10,7 +10,7 @@ import SongSearch from './SongSearch'
 import ArtistSearch from './ArtistSearch'
 import AlbumSearch from './AlbumSearch'
 // import RecentReviews from './RecentReviews'
-export default function Dashboard({ name }) {
+export default function Dashboard({ name, songFlag, artistFlag, albumFlag }) {
   const theme = useTheme()
 
   const useStyles = makeStyles((theme) => ({
@@ -33,38 +33,19 @@ export default function Dashboard({ name }) {
   return (
     <React.Fragment>
       <Grid container spacing={4}>
-        {/* Ratings Chart */}
-        {/* <Grid item xs={12} md={8} lg={7}>
-          <Paper className={fixedHeightPaper}>
-            <RatingsChart />
-          </Paper>
-        </Grid> */}
-        {/* User Count */}
-        <Grid item xs={12} md={4} lg={5}>
-          <Paper className={fixedHeightPaper}>
-            <SongSearch songName={name} />
-            {/* <ArtistSearch artistName={name} /> */}
-            {/* <AlbumSearch albumName={name} /> */}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={8} lg={5}>
-          <Paper className={fixedHeightPaper}>
-            {/* <SongCount /> */}
-            <ArtistSearch artistName={name} />
-          </Paper>
-        </Grid>
         <Grid item xs={12} md={10} lg={15}>
           <Paper className={fixedHeightPaper}>
-            <AlbumSearch albumName={name} />
-            {/* <ArtistSearch /> */}
+            <h2>Search Results</h2>
+            {/* Ternary operator using the three boolean values to decide what component to show */}
+            {songFlag ? (
+              <SongSearch songName={name} />
+            ) : artistFlag ? (
+              <ArtistSearch artistName={name} />
+            ) : albumFlag ? (
+              <AlbumSearch albumName={name} />
+            ) : null}
           </Paper>
         </Grid>
-        {/* Recent Reviews */}
-        {/* <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <RecentReviews />
-          </Paper>
-        </Grid> */}
       </Grid>
     </React.Fragment>
   )

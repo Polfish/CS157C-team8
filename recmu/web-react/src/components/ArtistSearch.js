@@ -32,7 +32,7 @@ export default function Deposits({ artistName }) {
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
-      <Title>Related Artists</Title>
+      <Title>Related to {artistName}</Title>
       <Typography component="p" variant="h4">
         {loading ? 'Loading...' : data.findRelatedArtists.join('\n')}
       </Typography>

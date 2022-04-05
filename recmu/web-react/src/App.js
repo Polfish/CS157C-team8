@@ -174,24 +174,37 @@ export default function App() {
   const classes = useStyles()
 
   // toggle color change on button when clicked to indicate recommendation is for what type
-  const [songflag, setSongFlag] = useState(true)
-  const [artistflag, setArtistFlag] = useState(true)
-  const [albumflag, setAlbumFlag] = useState(true)
+  const [songflag, setSongFlag] = useState(false)
+  const [artistflag, setArtistFlag] = useState(false)
+  const [albumflag, setAlbumFlag] = useState(false)
 
   // switches to other color after song button clicked
   const handleSongClick = () => {
     setSongFlag(!songflag)
+    setArtistFlag(false)
+    setAlbumFlag(false)
+    setSearched(search)
+    setSearch('')
   }
 
   // switches to other color after artist button clicked
   const handleArtistClick = () => {
     setArtistFlag(!artistflag)
+    setSongFlag(false)
+    setAlbumFlag(false)
+    setSearched(search)
+    setSearch('')
   }
 
   // switches to other color after album button clicked
   const handleAlbumClick = () => {
     setAlbumFlag(!albumflag)
+    setSongFlag(false)
+    setArtistFlag(false)
+    setSearched(search)
+    setSearch('')
   }
+
   const [search, setSearch] = useState('')
   const [searched, setSearched] = useState('')
   // const [searching, setSearching] = useState(true)
@@ -207,7 +220,18 @@ export default function App() {
     return (
       <div>
         <Switch>
-          <Route exact path="/" component={() => <Dashboard name={name} />} />
+          <Route
+            exact
+            path="/"
+            component={() => (
+              <Dashboard
+                name={name}
+                songFlag={songflag}
+                artistFlag={artistflag}
+                albumFlag={albumflag}
+              />
+            )}
+          />
           {/* <Route exact path="/businesses" component={UserList} />z */}
           {/* <Route exact path="/users" component={UserList} /> */}
         </Switch>
@@ -328,7 +352,7 @@ export default function App() {
               </Button>
               <Button
                 onClick={handleArtistClick}
-                color={artistflag ? 'secondary' : 'primary'}
+                color={artistflag ? 'primary' : 'secondary'}
                 variant="contained"
               >
                 Artist
@@ -336,7 +360,7 @@ export default function App() {
               <Button
                 onClick={handleAlbumClick}
                 variant="contained"
-                color={albumflag ? 'secondary' : 'primary'}
+                color={albumflag ? 'primary' : 'secondary'}
               >
                 Album
               </Button>

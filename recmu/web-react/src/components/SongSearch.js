@@ -32,9 +32,12 @@ export default function Deposits({ songName }) {
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
-      <Title>Search Results</Title>
+      <Title>Related to {songName}</Title>
       <Typography component="p" variant="h4" className={classes.results}>
         {loading ? 'Loading...' : data.findRelatedSongs.join('\n')}
+      </Typography>
+      <Typography color="textSecondary" className={classes.depositContext}>
+        Songs found
       </Typography>
       <div>
         <Link to="/users" className={classes.navLink}>

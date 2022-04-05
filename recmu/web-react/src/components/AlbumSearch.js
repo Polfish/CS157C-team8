@@ -32,7 +32,7 @@ export default function Deposits({ albumName }) {
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
-      <Title>Related Albums</Title>
+      <Title>Related to {albumName}</Title>
       <Typography component="p" variant="h4">
         {loading ? 'Loading...' : data.findRelatedAlbums.join('\n')}
       </Typography>
