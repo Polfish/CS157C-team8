@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 
 const GET_COUNT_QUERY = gql`
   {
-    userCount
+    songCount
   }
 `
 
@@ -27,9 +27,9 @@ export default function Deposits() {
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
-      <Title>Related Songs</Title>
+      <Title>Total Songs</Title>
       <Typography component="p" variant="h4">
-        {loading ? 'Loading...' : data.userCount}
+        {loading ? 'Loading...' : data.songCount}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         songs found

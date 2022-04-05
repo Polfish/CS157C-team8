@@ -121,3 +121,12 @@ type Query {
       statement: "MATCH (s:song {name: 'Beautiful People (feat. Khalid)'})-[r:RELATED_TO]->(n:song) RETURN n.name"
     )
 }
+
+type Query {
+  songCount: Int @cypher(statement: "MATCH (n:song) RETURN count(*) as count")
+}
+
+type Query {
+  artistCount: Int
+    @cypher(statement: "MATCH (n:Artist) RETURN count(*) as count")
+}

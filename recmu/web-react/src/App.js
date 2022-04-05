@@ -117,6 +117,13 @@ const useStyles = makeStyles((theme) => ({
     height: '120vh',
     overflow: 'auto',
   },
+  aboutUs: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
@@ -216,6 +223,15 @@ export default function App() {
               className={classes.title}
             >
               RecMu
+            </Typography>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.aboutUs}
+            >
+              About Us
             </Typography>
           </Toolbar>
         </AppBar>

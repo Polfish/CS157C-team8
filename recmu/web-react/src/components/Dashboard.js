@@ -6,6 +6,8 @@ import clsx from 'clsx'
 
 // import RatingsChart from './RatingsChart'
 import UserCount from './UserCount'
+import SongCount from './SongCount'
+import ArtistCount from './ArtistCount'
 // import RecentReviews from './RecentReviews'
 export default function Dashboard() {
   const theme = useTheme()
@@ -40,6 +42,16 @@ export default function Dashboard() {
         <Grid item xs={12} md={4} lg={5}>
           <Paper className={fixedHeightPaper}>
             <UserCount />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={8} lg={5}>
+          <Paper className={fixedHeightPaper}>
+            <SongCount />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={10} lg={15}>
+          <Paper className={fixedHeightPaper}>
+            <ArtistCount />
           </Paper>
         </Grid>
         {/* Recent Reviews */}
