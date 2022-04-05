@@ -161,18 +161,24 @@ export default function App() {
   // }
 
   const [search, setSearch] = useState('')
-  const [searching, setSearching] = useState(false)
+  const [searched, setSearched] = useState('')
+  // const [searching, setSearching] = useState(true)
 
   const handleSearch = () => {
     console.log(search)
-    setSearching(true)
+    setSearched(search)
     setSearch('')
   }
 
   const showSearchResults = () => {
+    const name = searched
     return (
       <div>
-        <h2>Search Results</h2>
+        <Switch>
+          <Route exact path="/" component={() => <Dashboard name={name} />} />
+          {/* <Route exact path="/businesses" component={UserList} />z */}
+          {/* <Route exact path="/users" component={UserList} /> */}
+        </Switch>
       </div>
     )
   }
@@ -295,13 +301,7 @@ export default function App() {
                 className={classes.searchBar}
               />
             </div>
-            {searching ? showSearchResults() : null}
-            <Switch>
-              <Route exact path="/" component={Dashboard} />
-              {/* <Route exact path="/businesses" component={UserList} /> */}
-              {/* <Route exact path="/users" component={UserList} /> */}
-            </Switch>
-
+            {showSearchResults()}
             <Box pt={4}>
               <Copyright />
             </Box>

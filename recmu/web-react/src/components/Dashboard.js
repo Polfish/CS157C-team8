@@ -9,7 +9,7 @@ import UserCount from './UserCount'
 import SongCount from './SongCount'
 import ArtistCount from './ArtistCount'
 // import RecentReviews from './RecentReviews'
-export default function Dashboard() {
+export default function Dashboard({ name }) {
   const theme = useTheme()
 
   const useStyles = makeStyles((theme) => ({
@@ -41,7 +41,7 @@ export default function Dashboard() {
         {/* User Count */}
         <Grid item xs={12} md={4} lg={5}>
           <Paper className={fixedHeightPaper}>
-            <UserCount />
+            <UserCount name={name} />
           </Paper>
         </Grid>
         <Grid item xs={12} md={8} lg={5}>

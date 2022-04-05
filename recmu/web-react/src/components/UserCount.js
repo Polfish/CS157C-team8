@@ -15,24 +15,23 @@ const useStyles = makeStyles({
 })
 
 const GET_COUNT_QUERY = gql`
-  {
-    userCount
+  query($name: String) {
+    userCount(name: $name)
   }
 `
 
-export default function Deposits() {
+export default function Deposits({ name }) {
   const classes = useStyles()
 
-  const { loading, error, data } = useQuery(GET_COUNT_QUERY)
+  const { loading, error, data } = useQuery(GET_COUNT_QUERY, {
+    variables: { name },
+  })
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
-      <Title>Related Songs</Title>
+      <Title>Search Results</Title>
       <Typography component="p" variant="h4">
         {loading ? 'Loading...' : data.userCount}
-      </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
-        songs found
       </Typography>
       <div>
         <Link to="/users" className={classes.navLink}>
