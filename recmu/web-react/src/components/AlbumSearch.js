@@ -17,28 +17,31 @@ const useStyles = makeStyles({
   },
 })
 
-const GET_COUNT_QUERY = gql`
-  query($name: String) {
-    search(name: $name)
+const GET_REL_ALBUMS_QUERY = gql`
+  query($albumName: String) {
+    findRelatedAlbums(albumName: $albumName)
   }
 `
 
-export default function Deposits({ name }) {
+export default function Deposits({ albumName }) {
   const classes = useStyles()
 
-  const { loading, error, data } = useQuery(GET_COUNT_QUERY, {
-    variables: { name },
+  const { loading, error, data } = useQuery(GET_REL_ALBUMS_QUERY, {
+    variables: { albumName },
   })
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
-      <Title>Search Results</Title>
-      <Typography component="p" variant="h4" className={classes.results}>
-        {loading ? 'Loading...' : data.search.join('\n')}
+      <Title>Related Albums</Title>
+      <Typography component="p" variant="h4">
+        {loading ? 'Loading...' : data.findRelatedAlbums.join('\n')}
+      </Typography>
+      <Typography color="textSecondary" className={classes.depositContext}>
+        Albums found
       </Typography>
       <div>
         <Link to="/users" className={classes.navLink}>
-          View songs
+          View albums
         </Link>
       </div>
     </React.Fragment>

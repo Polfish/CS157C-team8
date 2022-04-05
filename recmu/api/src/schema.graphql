@@ -116,9 +116,23 @@ type Mutation {
 }
 
 type Query {
-  search (name: String): [String]
+  findRelatedSongs(songName: String): [String]
     @cypher(
-      statement: "MATCH (s:song {name: $name})-[r:RELATED_TO]->(n:song) RETURN n.name"
+      statement: "MATCH (s:song {name: $songName})-[r:RELATED_TO]->(n:song) RETURN n.name"
+    )
+}
+
+type Query {
+  findRelatedArtists(artistName: String): [String]
+    @cypher(
+      statement: "MATCH (s:Artist {name: $artistName})-[r:RELATED_TO]->(n:Artist) RETURN n.name"
+    )
+}
+
+type Query {
+  findRelatedAlbums(albumName: String): [String]
+    @cypher(
+      statement: "MATCH (s:Album {name: $albumName})-[r:RELATED_TO]->(n:Album) RETURN n.name"
     )
 }
 

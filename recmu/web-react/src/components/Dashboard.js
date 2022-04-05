@@ -5,9 +5,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
 // import RatingsChart from './RatingsChart'
-import UserCount from './UserCount'
-import SongCount from './SongCount'
-import ArtistCount from './ArtistCount'
+import SongSearch from './SongSearch'
+// import SongCount from './SongCount'
+import ArtistSearch from './ArtistSearch'
+import AlbumSearch from './AlbumSearch'
 // import RecentReviews from './RecentReviews'
 export default function Dashboard({ name }) {
   const theme = useTheme()
@@ -41,17 +42,21 @@ export default function Dashboard({ name }) {
         {/* User Count */}
         <Grid item xs={12} md={4} lg={5}>
           <Paper className={fixedHeightPaper}>
-            <UserCount name={name} />
+            <SongSearch songName={name} />
+            {/* <ArtistSearch artistName={name} /> */}
+            {/* <AlbumSearch albumName={name} /> */}
           </Paper>
         </Grid>
         <Grid item xs={12} md={8} lg={5}>
           <Paper className={fixedHeightPaper}>
-            <SongCount />
+            {/* <SongCount /> */}
+            <ArtistSearch artistName={name} />
           </Paper>
         </Grid>
         <Grid item xs={12} md={10} lg={15}>
           <Paper className={fixedHeightPaper}>
-            <ArtistCount />
+            <AlbumSearch albumName={name} />
+            {/* <ArtistSearch /> */}
           </Paper>
         </Grid>
         {/* Recent Reviews */}

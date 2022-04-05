@@ -12,27 +12,32 @@ const useStyles = makeStyles({
   navLink: {
     textDecoration: 'none',
   },
+  results: {
+    whiteSpace: 'pre-wrap',
+  },
 })
 
-const GET_COUNT_QUERY = gql`
-  {
-    artistCount
+const GET_REL_ARTISTS_QUERY = gql`
+  query($artistName: String) {
+    findRelatedArtists(artistName: $artistName)
   }
 `
 
-export default function Deposits() {
+export default function Deposits({ artistName }) {
   const classes = useStyles()
 
-  const { loading, error, data } = useQuery(GET_COUNT_QUERY)
+  const { loading, error, data } = useQuery(GET_REL_ARTISTS_QUERY, {
+    variables: { artistName },
+  })
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
-      <Title>Total Artists</Title>
+      <Title>Related Artists</Title>
       <Typography component="p" variant="h4">
-        {loading ? 'Loading...' : data.artistCount}
+        {loading ? 'Loading...' : data.findRelatedArtists.join('\n')}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        artists found
+        Artists found
       </Typography>
       <div>
         <Link to="/users" className={classes.navLink}>
