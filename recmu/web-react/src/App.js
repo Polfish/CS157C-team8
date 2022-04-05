@@ -5,7 +5,12 @@ import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 // import UserList from './components/UserList'
 
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+} from '@material-ui/core/styles'
+import { blue, pink } from '@material-ui/core/colors'
 
 // import SearchBar from 'material-ui-search-bar'
 import {
@@ -16,6 +21,7 @@ import {
   Toolbar,
   // List,
   Typography,
+  Button,
   // Divider,
   // IconButton,
   Container,
@@ -53,6 +59,9 @@ const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },
+  spacer: {
+    marginBottom: theme.spacing(10),
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
@@ -128,6 +137,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
+  box: {
+    paddingTop: theme.spacing(6),
+    paddingLeft: '50px',
+  },
   paper: {
     padding: theme.spacing(2),
     display: 'flex',
@@ -150,16 +163,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const defaultTheme = createMuiTheme({
+  palette: {
+    primary: blue,
+    secondary: pink,
+  },
+})
+
 export default function App() {
   const classes = useStyles()
-  // const [open, setOpen] = React.useState(true)
-  // const handleDrawerOpen = () => {
-  //   setOpen(true)
-  // }
-  // const handleDrawerClose = () => {
-  //   setOpen(false)
-  // }
 
+  // toggle color change on button when clicked to indicate recommendation is for what type
+  const [songflag, setSongFlag] = useState(true)
+  const [artistflag, setArtistFlag] = useState(true)
+  const [albumflag, setAlbumFlag] = useState(true)
+
+  // switches to other color after song button clicked
+  const handleSongClick = () => {
+    setSongFlag(!songflag)
+  }
+
+  // switches to other color after artist button clicked
+  const handleArtistClick = () => {
+    setArtistFlag(!artistflag)
+  }
+
+  // switches to other color after album button clicked
+  const handleAlbumClick = () => {
+    setAlbumFlag(!albumflag)
+  }
   const [search, setSearch] = useState('')
   const [searched, setSearched] = useState('')
   // const [searching, setSearching] = useState(true)
@@ -281,8 +313,35 @@ export default function App() {
           // onRequestSearch={() => doSomethingWith(this.state.value)}
           // onRequestSearch={console.log('Hello')}
         /> */}
+        <ThemeProvider theme={defaultTheme} />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
+          {/*GUI for the 3 buttons*/}
+          <Box className={classes.box}>
+            <div>
+              <Button
+                onClick={handleSongClick}
+                color={songflag ? 'primary' : 'secondary'}
+                variant="contained"
+              >
+                Song
+              </Button>
+              <Button
+                onClick={handleArtistClick}
+                color={artistflag ? 'secondary' : 'primary'}
+                variant="contained"
+              >
+                Artist
+              </Button>
+              <Button
+                onClick={handleAlbumClick}
+                variant="contained"
+                color={albumflag ? 'secondary' : 'primary'}
+              >
+                Album
+              </Button>
+            </div>
+          </Box>
           <Container maxWidth="lg" className={classes.container}>
             <div>
               <TextField
@@ -302,7 +361,7 @@ export default function App() {
               />
             </div>
             {showSearchResults()}
-            <Box pt={4}>
+            <Box m={4}>
               <Copyright />
             </Box>
           </Container>
