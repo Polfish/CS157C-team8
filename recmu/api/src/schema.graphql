@@ -116,7 +116,7 @@ type Mutation {
 }
 
 type Query {
-  userCount (name: String): [String]
+  search (name: String): [String]
     @cypher(
       statement: "MATCH (s:song {name: $name})-[r:RELATED_TO]->(n:song) RETURN n.name"
     )

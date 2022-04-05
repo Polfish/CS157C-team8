@@ -12,11 +12,14 @@ const useStyles = makeStyles({
   navLink: {
     textDecoration: 'none',
   },
+  results: {
+    whiteSpace: 'pre-wrap',
+  },
 })
 
 const GET_COUNT_QUERY = gql`
   query($name: String) {
-    userCount(name: $name)
+    search(name: $name)
   }
 `
 
@@ -30,8 +33,8 @@ export default function Deposits({ name }) {
   return (
     <React.Fragment>
       <Title>Search Results</Title>
-      <Typography component="p" variant="h4">
-        {loading ? 'Loading...' : data.userCount}
+      <Typography component="p" variant="h4" className={classes.results}>
+        {loading ? 'Loading...' : data.search.join('\n')}
       </Typography>
       <div>
         <Link to="/users" className={classes.navLink}>
