@@ -12,6 +12,10 @@ import {
 } from '@material-ui/core/styles'
 import { blue, pink } from '@material-ui/core/colors'
 
+import MusicNoteIcon from '@mui/icons-material/MusicNote'
+import PersonIcon from '@mui/icons-material/Person'
+import AlbumIcon from '@mui/icons-material/Album'
+
 // import SearchBar from 'material-ui-search-bar'
 import {
   CssBaseline,
@@ -140,6 +144,9 @@ const useStyles = makeStyles((theme) => ({
   box: {
     paddingTop: theme.spacing(6),
     paddingLeft: '50px',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   paper: {
     padding: theme.spacing(2),
@@ -340,50 +347,57 @@ export default function App() {
         <ThemeProvider theme={defaultTheme} />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          {/*GUI for the 3 buttons*/}
-          <Box className={classes.box}>
-            <div>
-              <Button
-                onClick={handleSongClick}
-                color={songflag ? 'primary' : 'secondary'}
-                variant="contained"
-              >
-                Song
-              </Button>
-              <Button
-                onClick={handleArtistClick}
-                color={artistflag ? 'primary' : 'secondary'}
-                variant="contained"
-              >
-                Artist
-              </Button>
-              <Button
-                onClick={handleAlbumClick}
-                variant="contained"
-                color={albumflag ? 'primary' : 'secondary'}
-              >
-                Album
-              </Button>
-            </div>
-          </Box>
+
           <Container maxWidth="lg" className={classes.container}>
             <div>
-              <TextField
-                id="input-with-icon-textfield"
-                label="Search for song, album, or artist"
-                InputProps={{
-                  startAdornment: (
-                    <IconButton onClick={handleSearch}>
-                      <SearchOutlined />
-                    </IconButton>
-                  ),
-                }}
-                onChange={({ target }) => setSearch(target.value)}
-                value={search}
-                variant="standard"
-                className={classes.searchBar}
-              />
+              <Box className="Box">
+                <TextField
+                  id="input-with-icon-textfield"
+                  label="Search for song, album, or artist"
+                  InputProps={{
+                    startAdornment: (
+                      <IconButton onClick={handleSearch}>
+                        <SearchOutlined />
+                      </IconButton>
+                    ),
+                  }}
+                  onChange={({ target }) => setSearch(target.value)}
+                  value={search}
+                  variant="standard"
+                  className={classes.searchBar}
+                />
+
+                {/*GUI for the 3 buttons*/}
+
+                <Button
+                  onClick={handleSongClick}
+                  color={songflag ? 'primary' : 'secondary'}
+                  variant="contained"
+                  style={{ marginRight: '15px' }}
+                >
+                  Song
+                  <MusicNoteIcon />
+                </Button>
+                <Button
+                  onClick={handleArtistClick}
+                  color={artistflag ? 'primary' : 'secondary'}
+                  variant="contained"
+                  style={{ marginRight: '15px' }}
+                >
+                  Artist
+                  <PersonIcon />
+                </Button>
+                <Button
+                  onClick={handleAlbumClick}
+                  variant="contained"
+                  color={albumflag ? 'primary' : 'secondary'}
+                >
+                  Album
+                  <AlbumIcon />
+                </Button>
+              </Box>
             </div>
+
             {showSearchResults()}
             <Box m={4}>
               <Copyright />
