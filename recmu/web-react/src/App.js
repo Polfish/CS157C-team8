@@ -27,12 +27,11 @@ import {
   Typography,
   Button,
   // Divider,
-  // IconButton,
+  IconButton,
   Container,
   Link as MUILink,
   TextField,
   // InputAdornment,
-  IconButton,
   // ListItem,
   // ListItemText,
   // ListItemIcon,
@@ -143,10 +142,12 @@ const useStyles = makeStyles((theme) => ({
   },
   box: {
     paddingTop: theme.spacing(6),
-    paddingLeft: '50px',
+    padding: theme.spacing(2),
+    display: 'flex',
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    gap: theme.spacing(2),
+    alignItems: 'end',
   },
   paper: {
     padding: theme.spacing(2),
@@ -164,9 +165,6 @@ const useStyles = makeStyles((theme) => ({
   appBarImage: {
     maxHeight: '75px',
     paddingRight: '20px',
-  },
-  searchBar: {
-    padding: '20px',
   },
 }))
 
@@ -187,7 +185,10 @@ export default function App() {
 
   // switches to other color after song button clicked
   const handleSongClick = () => {
-    setSongFlag(!songflag)
+    // Only inverts the flag when another flag is clicked
+    if (!songflag) {
+      setSongFlag(!songflag)
+    }
     setArtistFlag(false)
     setAlbumFlag(false)
     setSearched(search)
@@ -196,7 +197,10 @@ export default function App() {
 
   // switches to other color after artist button clicked
   const handleArtistClick = () => {
-    setArtistFlag(!artistflag)
+    // Only inverts the flag when another flag is clicked
+    if (!artistflag) {
+      setArtistFlag(!artistflag)
+    }
     setSongFlag(false)
     setAlbumFlag(false)
     setSearched(search)
@@ -205,7 +209,10 @@ export default function App() {
 
   // switches to other color after album button clicked
   const handleAlbumClick = () => {
-    setAlbumFlag(!albumflag)
+    // Only inverts the flag when another flag is clicked
+    if (!albumflag) {
+      setAlbumFlag(!albumflag)
+    }
     setSongFlag(false)
     setArtistFlag(false)
     setSearched(search)
@@ -214,7 +221,6 @@ export default function App() {
 
   const [search, setSearch] = useState('')
   const [searched, setSearched] = useState('')
-  // const [searching, setSearching] = useState(true)
 
   const handleSearch = () => {
     console.log(search)
@@ -350,10 +356,10 @@ export default function App() {
 
           <Container maxWidth="lg" className={classes.container}>
             <div>
-              <Box className="Box">
+              <Box className={classes.box}>
                 <TextField
                   id="input-with-icon-textfield"
-                  label="Search for song, album, or artist"
+                  placeholder="Search for song, album, or artist"
                   InputProps={{
                     startAdornment: (
                       <IconButton onClick={handleSearch}>
@@ -368,33 +374,34 @@ export default function App() {
                 />
 
                 {/*GUI for the 3 buttons*/}
-
-                <Button
-                  onClick={handleSongClick}
-                  color={songflag ? 'primary' : 'secondary'}
-                  variant="contained"
-                  style={{ marginRight: '15px' }}
-                >
-                  Song
-                  <MusicNoteIcon />
-                </Button>
-                <Button
-                  onClick={handleArtistClick}
-                  color={artistflag ? 'primary' : 'secondary'}
-                  variant="contained"
-                  style={{ marginRight: '15px' }}
-                >
-                  Artist
-                  <PersonIcon />
-                </Button>
-                <Button
-                  onClick={handleAlbumClick}
-                  variant="contained"
-                  color={albumflag ? 'primary' : 'secondary'}
-                >
-                  Album
-                  <AlbumIcon />
-                </Button>
+                <Box>
+                  <Button
+                    onClick={handleSongClick}
+                    color={songflag ? 'primary' : 'secondary'}
+                    variant="contained"
+                    style={{ marginRight: '15px' }}
+                  >
+                    Song
+                    <MusicNoteIcon />
+                  </Button>
+                  <Button
+                    onClick={handleArtistClick}
+                    color={artistflag ? 'primary' : 'secondary'}
+                    variant="contained"
+                    style={{ marginRight: '15px' }}
+                  >
+                    Artist
+                    <PersonIcon />
+                  </Button>
+                  <Button
+                    onClick={handleAlbumClick}
+                    variant="contained"
+                    color={albumflag ? 'primary' : 'secondary'}
+                  >
+                    Album
+                    <AlbumIcon />
+                  </Button>
+                </Box>
               </Box>
             </div>
 
