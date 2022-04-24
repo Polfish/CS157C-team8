@@ -166,6 +166,9 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '75px',
     paddingRight: '20px',
   },
+  searchBar: {
+    width: '50%',
+  },
 }))
 
 const defaultTheme = createMuiTheme({
@@ -368,6 +371,7 @@ export default function App() {
                     ),
                   }}
                   onChange={({ target }) => setSearch(target.value)}
+                  fullWidth
                   value={search}
                   variant="standard"
                   className={classes.searchBar}
