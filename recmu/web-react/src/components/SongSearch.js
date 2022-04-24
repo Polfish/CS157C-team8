@@ -1,9 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Title from './Title'
 import { useQuery, gql } from '@apollo/client'
+import { Paper } from '@material-ui/core'
+//import clsx from 'clsx'
+import { useTheme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   depositContext: {
@@ -24,7 +27,10 @@ const GET_COUNT_QUERY = gql`
 `
 
 export default function Deposits({ songName }) {
-  const classes = useStyles()
+  const theme = useTheme()
+
+  const classes = useStyles(theme)
+  //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
   const { loading, error, data } = useQuery(GET_COUNT_QUERY, {
     variables: { songName },
@@ -33,17 +39,24 @@ export default function Deposits({ songName }) {
   return (
     <React.Fragment>
       <Title>Related to {songName}</Title>
-      <Typography component="p" variant="h4" className={classes.results}>
-        {loading ? 'Loading...' : data.findRelatedSongs.join('\n')}
-      </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         {loading ? 'Loading...' : data.findRelatedSongs.length} Songs found
       </Typography>
       <div>
-        <Link to="/songs" className={classes.navLink}>
+        {/*<Link to="/songs" className={classes.navLink}>
           View songs
-        </Link>
+        </Link>*/}
       </div>
+      {/*<Paper className={fixedHeightPaper}>
+        <Typography component="p" variant="h4" className={classes.results}>
+          {loading ? 'Loading...' : data.findRelatedSongs.join('\n')}
+        </Typography>
+      </Paper>*/}
+      <Paper>
+        <Typography variant="h4" className={classes.results}>
+          {loading ? 'Loading...' : data.findRelatedSongs.join('\n')}
+        </Typography>
+      </Paper>
     </React.Fragment>
   )
 }
