@@ -409,7 +409,7 @@ export default function App() {
               </Box>
             </div>
 
-            <h2>Search Results</h2>
+            {/*<h2>Search Results</h2>*/}
 
             {showSearchResults()}
             <Box m={4}>

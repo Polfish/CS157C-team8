@@ -38,6 +38,7 @@ export default function Deposits({ songName }) {
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
+      <h2>Search Results</h2>
       <Title>Related to {songName}</Title>
       <Typography color="textSecondary" className={classes.depositContext}>
         {loading ? 'Loading...' : data.findRelatedSongs.length} Songs found
@@ -53,7 +54,7 @@ export default function Deposits({ songName }) {
         </Typography>
       </Paper>*/}
       <Paper>
-        <Typography variant="h4" className={classes.results}>
+        <Typography component="p" variant="h4" className={classes.results}>
           {loading ? 'Loading...' : data.findRelatedSongs.join('\n')}
         </Typography>
       </Paper>
