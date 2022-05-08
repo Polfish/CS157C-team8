@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Title from './Title'
 import { useQuery, gql } from '@apollo/client'
-import { Paper } from '@material-ui/core'
+import { Box, Card } from '@material-ui/core'
 //import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
 
@@ -35,29 +35,42 @@ export default function Deposits({ songName }) {
   const { loading, error, data } = useQuery(GET_COUNT_QUERY, {
     variables: { songName },
   })
+
+  if (loading) return 'Loading...'
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
       <h2>Search Results</h2>
       <Title>Related to {songName}</Title>
       <Typography color="textSecondary" className={classes.depositContext}>
-        {loading ? 'Loading...' : data.findRelatedSongs.length} Songs found
+        {data.findRelatedSongs.length} Songs found
       </Typography>
       <div>
         {/*<Link to="/songs" className={classes.navLink}>
           View songs
         </Link>*/}
       </div>
-      {/*<Paper className={fixedHeightPaper}>
-        <Typography component="p" variant="h4" className={classes.results}>
-          {loading ? 'Loading...' : data.findRelatedSongs.join('\n')}
-        </Typography>
-      </Paper>*/}
-      <Paper>
-        <Typography component="p" variant="h4" className={classes.results}>
-          {loading ? 'Loading...' : data.findRelatedSongs.join('\n')}
-        </Typography>
-      </Paper>
+      <Box
+        sx={{
+          display: 'flex',
+          flexwrap: 'wrap',
+          '& > :not(style)': {
+            m: 1,
+            width: 128,
+            height: 128,
+          },
+          flexdirection: 'column',
+        }}
+      >
+        {data.findRelatedSongs.map((result) => (
+          // <h2 key={result.songName}>{result}</h2>
+          <Card key={result.songName}>
+            <Typography component="p" variant="h4" className={classes.results}>
+              {result}
+            </Typography>
+          </Card>
+        ))}
+      </Box>
     </React.Fragment>
   )
 }

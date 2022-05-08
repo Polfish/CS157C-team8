@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Title from './Title'
 import { useQuery, gql } from '@apollo/client'
-import { Paper } from '@material-ui/core'
+import { Card } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
@@ -32,6 +32,7 @@ export default function Deposits({ albumName }) {
   const { loading, error, data } = useQuery(GET_REL_ALBUMS_QUERY, {
     variables: { albumName },
   })
+  if (loading) return 'Loading...'
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
@@ -40,16 +41,14 @@ export default function Deposits({ albumName }) {
       <Typography color="textSecondary" className={classes.depositContext}>
         {loading ? 'Loading...' : data.findRelatedAlbums.length} Albums found
       </Typography>
-      <Paper>
-        <Typography component="p" variant="h4" className={classes.results}>
-          {loading ? 'Loading...' : data.findRelatedAlbums.join('\n')}
-        </Typography>
-      </Paper>
-      {/*<div>
-        <Link to="/albums" className={classes.navLink}>
-          View albums
-        </Link>
-      </div>*/}
+
+      {data.findRelatedAlbums.map((result) => (
+        <Card key={result.albumName}>
+          <Typography component="p" variant="h4" className={classes.results}>
+            {result}
+          </Typography>
+        </Card>
+      ))}
     </React.Fragment>
   )
 }

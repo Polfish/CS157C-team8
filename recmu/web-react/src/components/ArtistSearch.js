@@ -4,8 +4,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Title from './Title'
 import { useQuery, gql } from '@apollo/client'
-import { Paper } from '@material-ui/core'
+import { Card } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
+
+//import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 
 const useStyles = makeStyles({
   depositContext: {
@@ -40,16 +43,20 @@ export default function Deposits({ artistName }) {
       <Typography color="textSecondary" className={classes.depositContext}>
         {loading ? 'Loading...' : data.findRelatedArtists.length} Artists found
       </Typography>
-      <Paper>
-        <Typography component="p" variant="h4">
-          {loading ? 'Loading...' : data.findRelatedArtists.join('\n')}
-        </Typography>
-      </Paper>
-      {/*<div>
-        <Link to="/artists" className={classes.navLink}>
-          View artists
-        </Link>
-      </div>*/}
+      {loading
+        ? 'Loading...'
+        : data.findRelatedArtists.map((result) => (
+            <Card key={result.artistName}>
+              <Typography
+                component="p"
+                variant="h4"
+                className={classes.results}
+              >
+                {result}
+                <FavoriteBorderIcon />
+              </Typography>
+            </Card>
+          ))}
     </React.Fragment>
   )
 }

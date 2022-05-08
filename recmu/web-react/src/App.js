@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import { Switch, Route, BrowserRouter as Router, Link } from 'react-router-dom'
 
 // import UserList from './components/UserList'
 
@@ -178,6 +178,12 @@ const defaultTheme = createMuiTheme({
   },
 })
 
+const AboutUs = () => (
+  <div>
+    <p>About us</p>
+  </div>
+)
+
 export default function App() {
   const classes = useStyles()
 
@@ -231,6 +237,59 @@ export default function App() {
     setSearch('')
   }
 
+  // const Search = () => (
+  //   <div>
+  //     <Box className={classes.box}>
+  //       <TextField
+  //         id="input-with-icon-textfield"
+  //         placeholder="Search for song, album, or artist"
+  //         InputProps={{
+  //           startAdornment: (
+  //             <IconButton onClick={handleSearch}>
+  //               <SearchOutlined />
+  //             </IconButton>
+  //           ),
+  //         }}
+  //         onChange={({ target }) => setSearch(target.value)}
+  //         fullWidth
+  //         value={search}
+  //         variant="standard"
+  //         className={classes.searchBar}
+  //       />
+
+  //       {/*GUI for the 3 buttons*/}
+  //       <Box>
+  //         <Button
+  //           onClick={handleSongClick}
+  //           color={songflag ? 'primary' : 'secondary'}
+  //           variant="contained"
+  //           style={{ marginRight: '15px' }}
+  //         >
+  //           Song
+  //           <MusicNoteIcon />
+  //         </Button>
+  //         <Button
+  //           onClick={handleArtistClick}
+  //           color={artistflag ? 'primary' : 'secondary'}
+  //           variant="contained"
+  //           style={{ marginRight: '15px' }}
+  //         >
+  //           Artist
+  //           <PersonIcon />
+  //         </Button>
+  //         <Button
+  //           onClick={handleAlbumClick}
+  //           variant="contained"
+  //           color={albumflag ? 'primary' : 'secondary'}
+  //         >
+  //           Album
+  //           <AlbumIcon />
+  //         </Button>
+  //       </Box>
+  //     </Box>
+  //   </div>
+  // )
+
   const showSearchResults = () => {
     const name = searched
     return (
@@ -240,15 +299,19 @@ export default function App() {
             exact
             path="/"
             component={() => (
+              // <>
               <Dashboard
                 name={name}
                 songFlag={songflag}
                 artistFlag={artistflag}
                 albumFlag={albumflag}
               />
+              // {/* <Search />
+              // </> */}
             )}
           />
           {/* <Route exact path="/businesses" component={UserList} />z */}
+          <Route path="/aboutUs" component={AboutUs} />
           {/* <Route exact path="/users" component={UserList} /> */}
         </Switch>
       </div>
@@ -309,7 +372,7 @@ export default function App() {
               noWrap
               className={classes.aboutUs}
             >
-              About Us
+              <Link to="/aboutUs"> About Us </Link>
             </Typography>
           </Toolbar>
         </AppBar>
@@ -408,7 +471,6 @@ export default function App() {
                 </Box>
               </Box>
             </div>
-
             {/*<h2>Search Results</h2>*/}
 
             {showSearchResults()}
