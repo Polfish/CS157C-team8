@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
 import { Switch, Route, BrowserRouter as Router, Link } from 'react-router-dom'
-
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.min.css'
 // import UserList from './components/UserList'
 
 import clsx from 'clsx'
@@ -15,6 +16,10 @@ import { blue, pink } from '@material-ui/core/colors'
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import PersonIcon from '@mui/icons-material/Person'
 import AlbumIcon from '@mui/icons-material/Album'
+
+// import About from './components/AboutUs2.js'
+import AboutUsPage from './components/AboutUs.js'
+// import SongCatalogue from './components/SongCatalogue'
 
 // import SearchBar from 'material-ui-search-bar'
 import {
@@ -43,6 +48,7 @@ import {
 // People as PeopleIcon,
 import { SearchOutlined } from '@material-ui/icons'
 import Dashboard from './components/Dashboard'
+import LikedSongs from './components/LikedSongs'
 
 function Copyright() {
   return (
@@ -83,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
       // backgroundImage: `url("https://via.placeholder.com/500")`
       // backgroundImage: `img/RecMuTitleBarImage.png`,
-      backgroundColor: 'red',
+      // backgroundColor: 'red',
     }),
   },
   appBarShift: {
@@ -178,11 +184,11 @@ const defaultTheme = createMuiTheme({
   },
 })
 
-const AboutUs = () => (
-  <div>
-    <p>About us</p>
-  </div>
-)
+// const AboutUs = () => (
+//   <div>
+//     <p>About us</p>
+//   </div>
+// )
 
 export default function App() {
   const classes = useStyles()
@@ -237,59 +243,6 @@ export default function App() {
     setSearch('')
   }
 
-  // const Search = () => (
-  //   <div>
-  //     <Box className={classes.box}>
-  //       <TextField
-  //         id="input-with-icon-textfield"
-  //         placeholder="Search for song, album, or artist"
-  //         InputProps={{
-  //           startAdornment: (
-  //             <IconButton onClick={handleSearch}>
-  //               <SearchOutlined />
-  //             </IconButton>
-  //           ),
-  //         }}
-  //         onChange={({ target }) => setSearch(target.value)}
-  //         fullWidth
-  //         value={search}
-  //         variant="standard"
-  //         className={classes.searchBar}
-  //       />
-
-  //       {/*GUI for the 3 buttons*/}
-  //       <Box>
-  //         <Button
-  //           onClick={handleSongClick}
-  //           color={songflag ? 'primary' : 'secondary'}
-  //           variant="contained"
-  //           style={{ marginRight: '15px' }}
-  //         >
-  //           Song
-  //           <MusicNoteIcon />
-  //         </Button>
-  //         <Button
-  //           onClick={handleArtistClick}
-  //           color={artistflag ? 'primary' : 'secondary'}
-  //           variant="contained"
-  //           style={{ marginRight: '15px' }}
-  //         >
-  //           Artist
-  //           <PersonIcon />
-  //         </Button>
-  //         <Button
-  //           onClick={handleAlbumClick}
-  //           variant="contained"
-  //           color={albumflag ? 'primary' : 'secondary'}
-  //         >
-  //           Album
-  //           <AlbumIcon />
-  //         </Button>
-  //       </Box>
-  //     </Box>
-  //   </div>
-  // )
-
   const showSearchResults = () => {
     const name = searched
     return (
@@ -311,51 +264,34 @@ export default function App() {
             )}
           />
           {/* <Route exact path="/businesses" component={UserList} />z */}
-          <Route path="/aboutUs" component={AboutUs} />
+          {/* <Route path="/aboutUs" component={AboutUs} /> */}
           {/* <Route exact path="/users" component={UserList} /> */}
+          <Route path="/About" component={AboutUsPage} />
+          {/* <SongCatalogue /> */}
+          <Route path="/likedSongs" component={LikedSongs} />
         </Switch>
       </div>
     )
   }
 
+  // const [landingPageData, setLandingPageData] = useState({})
+  // useEffect(() => {
+  //   setLandingPageData(JsonData)
+  // }, [])
+
   return (
     <Router>
       <div className={classes.root}>
         <CssBaseline />
+
+        {/* Code for Home Page App Title Bar */}
         <AppBar
-          //style={{ background: 'img/RecMuTitleBarImage.png' }}
           style={{ backgroundColor: '#de6262' }}
           position="fixed"
           className={clsx(classes.appBar, open && classes.appBarShift)}
           width="auto"
-          // src="img/RecMuTitleBarImage.png"
-          // backgroundImage="img/RecMuTitleBarImage.png"
         >
-          {/* <img
-            // className={classes.appBarImage}
-            src="img/RecMuTitleBarImage.png"
-            alt="Title Bar Image"
-          /> */}
-          {/* <div src="img/RecMuTitleBarImage.png"></div> */}
-          {/* AppBar.style.top = '150px'; AppBar.style.left = '150px'; */}
           <Toolbar className={classes.toolbar}>
-            {/* <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              className={clsx(
-                classes.menuButton,
-                open && classes.menuButtonHidden
-              )}
-            >
-              <MenuIcon />
-            </IconButton>
-            <img
-              className={classes.appBarImage}
-              src="img/RecMuTitleBarImage.png"
-              alt="Title Bar"
-            /> */}
             <Typography
               component="h1"
               variant="h8"
@@ -365,6 +301,7 @@ export default function App() {
             >
               RecMu
             </Typography>
+
             <Typography
               component="h1"
               variant="h6"
@@ -372,50 +309,25 @@ export default function App() {
               noWrap
               className={classes.aboutUs}
             >
-              <Link to="/aboutUs"> About Us </Link>
+              <Link to="/likedSongs" className={classes.navLink}>
+                Liked Songs
+              </Link>
+            </Typography>
+
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.aboutUs}
+            >
+              <Link to="/About" className={classes.navLink}>
+                About
+              </Link>
             </Typography>
           </Toolbar>
         </AppBar>
-        {/* <Drawer
-          variant="permanent"
-          classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-          }}
-          open={open}
-        >
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            <Link to="/" className={classes.navLink}>
-              <ListItem button>
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-              </ListItem>
-            </Link>
 
-            <Link to="/users" className={classes.navLink}>
-              <ListItem button>
-                <ListItemIcon>
-                  <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Users" />
-              </ListItem>
-            </Link>
-          </List>
-          <Divider />
-        </Drawer> */}
-        {/* <SearchBar
-          value={this.state.value}
-          // onChange={(newValue) => this.setState({ value: newValue })}
-          // onRequestSearch={() => doSomethingWith(this.state.value)}
-          // onRequestSearch={console.log('Hello')}
-        /> */}
         <ThemeProvider theme={defaultTheme} />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -451,6 +363,7 @@ export default function App() {
                     Song
                     <MusicNoteIcon />
                   </Button>
+
                   <Button
                     onClick={handleArtistClick}
                     color={artistflag ? 'primary' : 'secondary'}
@@ -460,6 +373,7 @@ export default function App() {
                     Artist
                     <PersonIcon />
                   </Button>
+
                   <Button
                     onClick={handleAlbumClick}
                     variant="contained"

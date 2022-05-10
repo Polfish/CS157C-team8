@@ -23,8 +23,8 @@ const useStyles = makeStyles({
 })
 
 const GET_COUNT_QUERY = gql`
-  query($songName: String) {
-    findRelatedSongs(songName: $songName)
+  query() {
+    findSongCatalog()
   }
 `
 
@@ -42,8 +42,8 @@ export default function Deposits({ songName }) {
   if (error) return <p>Error: help!</p>
   return (
     <React.Fragment>
-      <h2>Search Results</h2>
-      <Title>Related to {songName}</Title>
+      <h2>Our Music Catalog</h2>
+      <Title>Prepare your ears..{songName}</Title>
       <Typography color="textSecondary" className={classes.depositContext}>
         {data.findRelatedSongs.length} Songs found
       </Typography>
