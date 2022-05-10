@@ -71,8 +71,8 @@ export default function Deposits({ songName }) {
               {result}
             </Typography>
             {/* <FontAwesomeIcon icon="fa-solid fa-heart" /> */}
-            <FavoriteIcon />
-            <FavoriteBorderIcon />
+            {/* <FavoriteIcon />
+            <FavoriteBorderIcon /> */}
           </Card>
         ))}
       </Box>

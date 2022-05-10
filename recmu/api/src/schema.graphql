@@ -151,6 +151,11 @@ type Query {
 }
 
 type Query {
+  getSongCatalog(songName: String): [String]
+    @cypher(statement: "MATCH (s:song) RETURN s.name")
+}
+
+type Query {
   songCount: Int @cypher(statement: "MATCH (n:song) RETURN count(*) as count")
 }
 

@@ -49,6 +49,7 @@ import {
 import { SearchOutlined } from '@material-ui/icons'
 import Dashboard from './components/Dashboard'
 import LikedSongs from './components/LikedSongs'
+import SongCatalogue from './components/SongCatalogue.js'
 
 function Copyright() {
   return (
@@ -266,9 +267,12 @@ export default function App() {
           {/* <Route exact path="/businesses" component={UserList} />z */}
           {/* <Route path="/aboutUs" component={AboutUs} /> */}
           {/* <Route exact path="/users" component={UserList} /> */}
+
           <Route path="/About" component={AboutUsPage} />
           {/* <SongCatalogue /> */}
+          {/* <Route path="Dashboard" component={Dashboard} /> */}
           <Route path="/likedSongs" component={LikedSongs} />
+          <Route path="/SongCatalogue" component={SongCatalogue} />
         </Switch>
       </div>
     )
@@ -299,7 +303,21 @@ export default function App() {
               noWrap
               className={classes.title}
             >
-              RecMu
+              <Link to="/" className={classes.navLink}>
+                RecMu
+              </Link>
+            </Typography>
+
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.aboutUs}
+            >
+              <Link to="/SongCatalogue" className={classes.navLink}>
+                Song Catalog
+              </Link>
             </Typography>
 
             <Typography

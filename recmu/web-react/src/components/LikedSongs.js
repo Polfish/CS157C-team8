@@ -14,11 +14,6 @@ const GET_LIKED_SONGS_QUERY = gql`
     findLikedSongs(userName: $userName)
   }
 `
-const GET_REL_ALBUMS_QUERY = gql`
-  query($albumName: String) {
-    findRelatedAlbums(albumName: $albumName)
-  }
-`
 
 const REMOVE_SONG_FROM_LIKES_QUERY = gql`
   query($userName: String, $songName: String) {
@@ -41,7 +36,7 @@ export default function LikedSongs() {
     console.log(error)
     return <p>Error: help!</p>
   }
-  console.log('Liked songs: ' + data)
+  console.log('Liked songs: ' + data.findLikedSongs)
 
   //   const [dislikeSongQuery, { loading2, error2, data2 }] = useLazyQuery(
   //     REMOVE_SONG_FROM_LIKES_QUERY
