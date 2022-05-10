@@ -5,7 +5,6 @@ import Title from './Title'
 import { useQuery, gql } from '@apollo/client'
 import { Box, Card } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 
 const useStyles = makeStyles({
@@ -18,63 +17,48 @@ const useStyles = makeStyles({
   results: {
     whiteSpace: 'pre-wrap',
   },
+  box: {
+    display: 'grid',
+    gap: '1rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
+  },
+  card: {
+    padding: '1rem',
+  },
 })
 
 const GETSONGCATALOG = gql`
-  query($name: String) {
-    getSongCatalog(name: $name)
+  query GetSongs {
+    songs {
+      name
+    }
   }
 `
 
-// const GET_COUNT_QUERY = gql`
-//   query($songName: String) {
-//     findRelatedSongs(songName: $songName)
-//   }
-// `
-
 export default function SongCatalogue() {
   const theme = useTheme()
-  const songName = 'anything'
   const classes = useStyles(theme)
-  //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
-  const { loading, error, data } = useQuery(GETSONGCATALOG, {
-    variables: { songName },
-  })
-
-  // const { loading, error, data } = useQuery(GETSONGCATALOG)
+  const { loading, error, data } = useQuery(GETSONGCATALOG)
 
   if (loading) return 'Loading...'
   if (error) return <p>Error: help!</p>
 
-  console.log('Liked songs: ' + data.getSongCatalog)
+  console.log('Hello')
+  console.log('Liked songs: ' + data.songs)
   return (
     <React.Fragment>
       <h2>Our Music Catalog</h2>
       <Title>Prepare your ears..</Title>
       <Typography color="textSecondary" className={classes.depositContext}>
-        {data.getSongCatalog.length} Songs found
+        {data.songs.length} Songs found
       </Typography>
-      <Box
-        sx={{
-          display: 'flex',
-          flexwrap: 'wrap',
-          '& > :not(style)': {
-            m: 1,
-            width: 128,
-            height: 128,
-          },
-          flexdirection: 'column',
-        }}
-      >
-        {data.getSongCatalog.map((result) => (
-          // <h2 key={result.songName}>{result}</h2>
-          <Card key={result.songName}>
+      <Box className={classes.box}>
+        {data.songs.map((result) => (
+          <Card key={result.name} className={classes.card}>
             <Typography component="p" variant="h4" className={classes.results}>
-              {result}
+              {result.name}
             </Typography>
-            {/* <FontAwesomeIcon icon="fa-solid fa-heart" /> */}
-            <FavoriteIcon />
             <FavoriteBorderIcon />
           </Card>
         ))}
