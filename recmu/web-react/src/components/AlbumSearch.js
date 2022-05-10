@@ -1,11 +1,15 @@
 import React from 'react'
 //import { Link } from 'react-router-dom'
+import Stack from '@mui/material/Stack'
+import CardActions from '@mui/material/CardActions'
+import IconButton from '@mui/material/IconButton'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Title from './Title'
 import { useQuery, gql } from '@apollo/client'
-import { Card } from '@material-ui/core'
+import { Box, Card } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 
 const useStyles = makeStyles({
   depositContext: {
@@ -16,6 +20,14 @@ const useStyles = makeStyles({
   },
   results: {
     whiteSpace: 'pre-wrap',
+  },
+  box: {
+    display: 'grid',
+    gap: '1rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+  },
+  card: {
+    padding: '1rem',
   },
 })
 
@@ -42,13 +54,26 @@ export default function Deposits({ albumName }) {
         {loading ? 'Loading...' : data.findRelatedAlbums.length} Albums found
       </Typography>
 
-      {data.findRelatedAlbums.map((result) => (
-        <Card key={result.albumName}>
-          <Typography component="p" variant="h4" className={classes.results}>
-            {result}
-          </Typography>
-        </Card>
-      ))}
+      <Box className={classes.box}>
+        {data.findRelatedAlbums.map((result) => (
+          <Card key={result.albumName} className={classes.card}>
+            <Stack direction="row" alignItems="center" gap={1}>
+              <Typography
+                component="p"
+                variant="h4"
+                className={classes.results}
+              >
+                {result}
+              </Typography>
+              <CardActions>
+                <IconButton aria-label="add to favorites">
+                  <FavoriteBorderIcon />
+                </IconButton>
+              </CardActions>
+            </Stack>
+          </Card>
+        ))}
+      </Box>
     </React.Fragment>
   )
 }
