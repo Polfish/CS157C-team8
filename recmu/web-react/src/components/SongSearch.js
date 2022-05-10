@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   box: {
     display: 'grid',
     gap: '1rem',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
   },
   card: {
     padding: '1rem',

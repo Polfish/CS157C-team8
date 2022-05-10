@@ -38,11 +38,11 @@ export default function SongCatalogue() {
   const classes = useStyles(theme)
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
-  // const { loading, error, data } = useQuery(GETSONGCATALOG, {
-  //   variables: { songName },
-  // })
+  const { loading, error, data } = useQuery(GETSONGCATALOG, {
+    variables: { songName },
+  })
 
-  const { loading, error, data } = useQuery(GETSONGCATALOG)
+  // const { loading, error, data } = useQuery(GETSONGCATALOG)
 
   if (loading) return 'Loading...'
   if (error) return <p>Error: help!</p>
