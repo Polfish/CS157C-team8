@@ -5,29 +5,29 @@ scalar PointInput
 type Album {
   id: Int!
   name: String
-  songs: [Song] @relationship(type: "IN_ALBUM", direction: IN)
+  songs: [song] @relationship(type: "IN_ALBUM", direction: IN)
 }
 
-type Song {
+type song {
   id: Int!
   name: String
   genre: [Genre] @relationship(type: "IN_GENRE", direction: OUT)
   album: [Album] @relationship(type: "IN_ALBUM", direction: OUT)
   artist: [Artist] @relationship(type: "HAS_ARTIST", direction: OUT)
-  songs: [Song] @relationship(type: "RELATED_TO", direction: OUT)
+  songs: [song] @relationship(type: "RELATED_TO", direction: OUT)
 }
 
 type Artist {
   id: Int!
   name: String
-  songs: [Song] @relationship(type: "HAS_ARTIST", direction: IN)
+  songs: [song] @relationship(type: "HAS_ARTIST", direction: IN)
   artists: [Artist] @relationship(type: "RELATED_TO", direction: OUT)
 }
 
 type Genre {
   id: Int!
   name: String
-  songs: [Song] @relationship(type: "IN_GENRE", direction: IN)
+  songs: [song] @relationship(type: "IN_GENRE", direction: IN)
 }
 
 type User {
@@ -134,6 +134,25 @@ type Query {
     @cypher(
       statement: "MATCH (s:Album {name: $albumName})-[r:RELATED_TO]->(n:Album) RETURN n.name"
     )
+}
+
+type Query {
+  findLikedSongs(userName: String): [String]
+    @cypher(
+      statement: "MATCH (u:User{name: $userName})-[r:LIKES_SONG]->(s:song) RETURN s.name"
+    )
+}
+
+type Query {
+  removeLikeFromSong(userName: String, songName: String): [String]
+    @cypher(
+      statement: "MATCH (u:User {name: $userName})-[r:LIKES_SONG]->(s:song {name:$songName}) DELETE r RETURN s.name"
+    )
+}
+
+type Query {
+  getSongCatalog(songName: String): [String]
+    @cypher(statement: "MATCH (s:song) RETURN s.name")
 }
 
 type Query {
