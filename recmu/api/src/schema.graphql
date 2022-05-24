@@ -152,7 +152,7 @@ type Query {
 
 type Query {
   getSongCatalog(songName: String): [String]
-    @cypher(statement: "MATCH (s:song) RETURN s.name")
+    @cypher(statement: "MATCH (s:song) RETURN distinct s.name")
 }
 
 type Query {
@@ -162,4 +162,25 @@ type Query {
 type Query {
   artistCount: Int
     @cypher(statement: "MATCH (n:Artist) RETURN count(*) as count")
+}
+
+type Mutation {
+  likeSong(songName: String, userName: String): song
+    @cypher(
+      statement: """
+      MATCH (s:song {name: $songName})
+      MERGE (u:User {name: $userName})-[r:LIKES_SONG]->(s)
+      return s
+      """
+    )
+}
+
+type Mutation {
+  dislikeSong(songName: String, userName: String): song
+    @cypher(
+      statement: """
+      MATCH (u:User {name: $userName})-[r:LIKES_SONG]->(s:song {name: $songName})
+      DELETE r
+      """
+    )
 }

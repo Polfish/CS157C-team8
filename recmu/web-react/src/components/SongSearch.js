@@ -9,10 +9,7 @@ import { Box, Card } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
 import Stack from '@mui/material/Stack'
 import CardActions from '@mui/material/CardActions'
-import IconButton from '@mui/material/IconButton'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import { useState } from 'react'
+import LikeButton from './LikeButton'
 
 const useStyles = makeStyles({
   depositContext: {
@@ -40,16 +37,22 @@ const GET_COUNT_QUERY = gql`
   }
 `
 
-export default function Deposits({ songName }) {
-  const [isCardView, setCardView] = useState(new Map())
-
-  const handleFavorite = (k, v) => {
-    setCardView(new Map(isCardView.map(k, v)))
+const GET_LIKED_SONGS_QUERY = gql`
+  query($userName: String) {
+    findLikedSongs(userName: $userName)
   }
+`
+
+export default function Deposits({ songName }) {
   const theme = useTheme()
 
   const classes = useStyles(theme)
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
+
+  const userName = 'Test'
+  const { data: likedSongs } = useQuery(GET_LIKED_SONGS_QUERY, {
+    variables: { userName },
+  })
 
   const { loading, error, data } = useQuery(GET_COUNT_QUERY, {
     variables: { songName },
@@ -57,6 +60,7 @@ export default function Deposits({ songName }) {
 
   if (loading) return 'Loading...'
   if (error) return <p>Error: help!</p>
+
   return (
     <React.Fragment>
       <h2>Search Results</h2>
@@ -71,8 +75,7 @@ export default function Deposits({ songName }) {
       </div>
       <Box className={classes.box}>
         {data.findRelatedSongs.map((result) => (
-          // <h2 key={result.songName}>{result}</h2>
-          <Card key={result.songName} className={classes.card}>
+          <Card key={result} className={classes.card}>
             <Stack direction="row" alignItems="center" gap={1}>
               <Typography
                 component="p"
@@ -82,16 +85,12 @@ export default function Deposits({ songName }) {
                 {result}
               </Typography>
               <CardActions>
-                <IconButton
-                  onClick={handleFavorite}
-                  // onTouchStartCapture={() => {
-                  //   this.setState({
-                  //     isCardView: !this.state.isCardView,
-                  //   })
-                  // }}
-                >
-                  {isCardView ? <FavoriteBorderIcon /> : <FavoriteIcon />}
-                </IconButton>
+                {likedSongs ? (
+                  <LikeButton
+                    songName={result}
+                    likedSong={likedSongs.findLikedSongs.includes(result)}
+                  />
+                ) : null}
               </CardActions>
             </Stack>
           </Card>

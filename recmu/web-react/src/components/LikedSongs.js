@@ -27,7 +27,7 @@ export default function LikedSongs() {
   // const [likedSongs, setLikedSongs] = useState([])
   // const [userName, setUsername] = useState('Default')
   // const [songToDislike, setSongToDislike] = useState('')
-  const userName = 'Default'
+  const userName = 'Test'
   const { loading, error, data } = useQuery(GET_LIKED_SONGS_QUERY, {
     variables: { userName },
   })
