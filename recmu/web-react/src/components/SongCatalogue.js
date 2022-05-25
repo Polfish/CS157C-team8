@@ -5,7 +5,7 @@ import Title from './Title'
 import { useQuery, gql } from '@apollo/client'
 import { Box, Card } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import LikeButton from './LikeButton'
 
 const useStyles = makeStyles({
   depositContext: {
@@ -35,9 +35,20 @@ const GETSONGCATALOG = gql`
   }
 `
 
+const GET_LIKED_SONGS_QUERY = gql`
+  query($userName: String) {
+    findLikedSongs(userName: $userName)
+  }
+`
+
 export default function SongCatalogue() {
   const theme = useTheme()
   const classes = useStyles(theme)
+
+  const userName = 'Test'
+  const { data: likedSongs } = useQuery(GET_LIKED_SONGS_QUERY, {
+    variables: { userName },
+  })
 
   const { loading, error, data } = useQuery(GETSONGCATALOG)
 
@@ -58,8 +69,13 @@ export default function SongCatalogue() {
           <Card key={result.name} className={classes.card}>
             <Typography component="p" variant="h4" className={classes.results}>
               {result.name}
+              {likedSongs ? (
+                <LikeButton
+                  songName={result}
+                  likedSong={likedSongs.findLikedSongs.includes(result)}
+                />
+              ) : null}
             </Typography>
-            <FavoriteBorderIcon />
           </Card>
         ))}
       </Box>
